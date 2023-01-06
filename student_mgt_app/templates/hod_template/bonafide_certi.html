@@ -1,0 +1,104 @@
+{% extends 'hod_template/base_template.html' %}
+{% block custom_css %}
+    <style>
+    .sub-text{
+        font-family: "Times New Roman";
+        font-weight: bold;
+        font-size: 20px;
+        color: #7c151f;
+    }
+    td{
+        text-align: center;
+    }
+    .bold-header{
+        font-size: 40px;
+        font-style: italic;
+        font-family: 'Courier New';
+        font-weight: bold;
+        color: #7c151f;
+    }
+    .para{
+        font-family: 'Times New Roman';
+        font-size: 26px;
+        text-align: left;
+        color: #7c151f;
+    }
+    .black-fonts{
+        font-size: 27px;
+        color: black;
+    }
+    </style>
+{% endblock custom_css %}
+{% block page_title %}
+Bonafide Certificate
+{% endblock page_title %}
+{% block main_content %}
+<br/><br/>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <table style="border: 10px double #7c151f; border-radius: 8px; width: 1220px">
+                    <tr>
+                        <td class="sub-text">|| Swami Shreeji ||</td>
+                    </tr>
+                     <tr>
+                        <td class="bold-header">Pramukh Swami Vidyalaya </td>
+                    </tr>
+                    <tr>
+                        <td class="sub-text">(Secondary) &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; (Higher Secondary)</td>
+                    </tr>
+                    <tr>
+                        <td class="sub-text">S.S.C. Index - 81.069 &emsp; &emsp; &emsp; &emsp; H.S.C. Index - 30.035</td>
+                    </tr>
+                    <tr>
+                        <td class="bold-header">Pramukh Swami Vidyamandir </td>
+                    </tr>
+                     <tr>
+                        <td class="sub-text">(Primary)</td>
+                    </tr>
+                    <tr>
+                        <td class="sub-text">At Sarangpur, Ta. Barvala, Dist. Botad</td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'Times New Roman'; color: #7c151f; font-weight: bolder; background: lightpink; border-radius: 20px; font-size: 40px; margin-top: 10px;">Bonafide Certificate</td>
+                    </tr>
+                    <tr>
+                        <td class="para">This is to certify that Shri <span class="black-fonts"> {{ student.admin.last_name }} {{ student.admin.first_name }} {{ student.father_name }} </span> is/was the bonafide student of this school. His particulars are as under.</td>
+                    </tr>
+                    <tr>
+                        <td class="para">1. General Register No: <span class="black-fonts">{{ student.gr_number }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="para">2. Birth Date (in figure): <span class="black-fonts">{{ bday }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="para">&emsp; &nbsp; &emsp; &emsp; &emsp; (in words): <span class="black-fonts">{{ b_day_word }} {{ b_month_word }} {{ b_year_word }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="para">3. Studying in Standard: <span class="black-fonts">{{ student.course_id.course_name }}</span>  Year: <span class="black-fonts">{{ student.session_year_id.session_start_year }} TO {{ student.session_year_id.session_end_year }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="para">4. Progress:.............................. &emsp; &emsp; &emsp; 5. Conduct:....................................</td>
+                    </tr>
+                    <tr>
+                        <td class="para">6. He had passed/appeared the ................................... Examination in...................................</td>
+                    </tr>
+                    <tr>
+                        <td class="para">To the best of my knowledge he bears a good moral character.</td>
+                    </tr>
+                    <tr>
+                        <td class="para">&emsp;</td>
+                    </tr>
+                     <tr>
+                        <td class="para" style="font-weight: bold">Date:&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Cleark: &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; Princiapl: </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock main_content %}

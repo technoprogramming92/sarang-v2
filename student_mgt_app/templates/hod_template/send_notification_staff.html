@@ -1,0 +1,81 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+    Send Notification To Staff
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title">Send Notification</h3>
+                      </div>
+
+                      <!-- form start -->
+                      <form action="{% url 'send_notification_staff_save' %}" method="post">
+                      {% csrf_token %}
+                        <div class="card-body">
+
+                              <div class="form-group">
+                                <label for="message">Notification Message</label>
+                                  <textarea class="form-control" rows="6" name="message" id="message"></textarea>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="row">
+                                  {% if messages %}
+                                  {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                      <div class="alert alert-danger" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                    {% if message.tags == 'success' %}
+                                      <div class="alert alert-success" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="card-footer">
+                              <button type="submit" class="btn btn-primary btn-block" id="send_notification">Send Notification</button>
+                            </div>
+                        </div>
+                      </form>
+                </div>
+
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Recent Notifications</h3>
+                </div>
+                <div class="table">
+                    <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Notification Date</th>
+                        <th>Notification</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for row in staff_notification %}
+                        <tr>
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.created_at }}</td>
+                            <td>{{ row.message }}</td>
+                            <td>
+                                <a href="#" class="btn btn-info" style="margin-right: 10px">Edit</a>
+                                <a href="{% url 'delete_notification_staff' notification_id=row.id %}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

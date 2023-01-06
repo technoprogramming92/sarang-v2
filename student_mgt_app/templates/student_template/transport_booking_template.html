@@ -1,0 +1,61 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+    Booking Transport
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title">Booking Transport</h3>
+                      </div>
+
+                      <!-- form start -->
+                      <form action="{% url 'student_apply_leave_save' %}" method="post">
+                      {% csrf_token %}
+                        <div class="card-body">
+
+                              <div class="form-group">
+                                <label for="leave_date">Leave Date</label>
+                                <input type="date" name="leave_date" id="leave_date" class="form-control">
+                              </div>
+
+                              <div class="form-group">
+                                <label for="leave_reason">Leave Reason</label>
+                                  <textarea class="form-control" rows="6" name="leave_reason" id="leave_reason"></textarea>
+                              </div>
+
+                              <div class="form-group">
+                                <div class="row">
+                                  {% if messages %}
+                                  {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                      <div class="alert alert-danger" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                    {% if message.tags == 'success' %}
+                                      <div class="alert alert-success" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="card-footer">
+                              <button type="submit" class="btn btn-primary btn-block" id="fetch_student">Apply For Leave</button>
+                            </div>
+                        </div>
+                      </form>
+                </div>
+
+
+            </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+

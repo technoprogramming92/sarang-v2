@@ -1,0 +1,97 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Add Transport Routes
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                    <div class="card card-primary">
+                          <div class="card-header">
+                            <h3 class="card-title">Add Transport Routes</h3>
+                          </div>
+                      <!-- /.card-header -->
+                      <!-- form start -->
+                        <div class="card-body">
+                        <form role="form" action="/add_transport_route_save" method="POST" enctype=multipart/form-data>
+                              {% csrf_token %}
+                              <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>Route Number</label>
+                                            <input type="text" class="form-control" name="route_number" placeholder="Route Number">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                          <label>City Name</label>
+                                          <input type="text" class="form-control" name="city_name" placeholder="City Name">
+                                          </div>
+                                      </div>
+                              </div>
+
+                              <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>Departure Date</label>
+                                            <input type="date" class="form-control" name="departure_date" placeholder="Departure Date">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                          <label>Departure Time</label>
+                                          <input type="text" class="form-control" name="departure_time" placeholder="Departure Time">
+                                          </div>
+                                      </div>
+                              </div>
+
+                              <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label>Arrival Date</label>
+                                            <input type="date" class="form-control" name="arrival_date" placeholder="Arrival Date">
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                          <label>Arrival Time</label>
+                                          <input type="text" class="form-control" name="arrival_time" placeholder="Arrival Time">
+                                          </div>
+                                      </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label>Remark</label>
+                                <input type="text" class="form-control" name="remark">
+                              </div>
+
+                              <div class="form-group">
+                                <div class="row">
+                                  {% if messages %}
+                                  {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                      <div class="alert alert-danger" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                    {% if message.tags == 'success' %}
+                                      <div class="alert alert-success" style="margin-top: 10px">{{ message }}</div>
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-block">Add Route</button>
+                              </div>
+                          </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}

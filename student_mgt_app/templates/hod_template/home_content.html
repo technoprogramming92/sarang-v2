@@ -1,0 +1,257 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+    Home
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3>{{ student_count }}</h3>
+
+                    <p>Total Students</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                    <a href="{% url 'manage_student' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3>{{ staff_count }}</h3>
+
+                    <p>Total Staffs</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                    <a href="{% url 'manage_staff' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                    <h3>{{ course_count }}</h3>
+
+                    <p>Total Standards</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                  </div>
+                    <a href="{% url 'manage_courses' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-gradient-warning">
+                  <div class="inner">
+                    <h3>{{ subject_count }}</h3>
+
+                    <p>Total Subjects</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-ios-book"></i>
+                  </div>
+                    <a href="{% url 'manage_subjects' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Student and Staff Chart</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title">Subjects in each Standard</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            <!-- /.card -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card card-info">
+                  <div class="card-header">
+                    <h3 class="card-title">Students in Each Standard</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h3 class="card-title">Students in Each Subjects</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="pieChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+    <script>
+        $(document).ready(function () {
+           let pieData  = {
+              labels: [
+                  'Students',
+                  'Staffs',
+              ],
+              datasets: [
+                {
+                  data: [{{ student_count }}, {{ staff_count }}],
+                  backgroundColor : ['#f56954', '#00a65a'],
+                }
+              ]
+            };
+            let pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+            let pieOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or donut chart
+            // You can switch between pie and donut using the method below.
+            new Chart(pieChartCanvas, {
+              type: 'pie',
+              data: pieData,
+              options: pieOptions
+            })
+
+            let subject_count_list = {{ subject_count_list }};
+            let course_name_list = {{ course_name_list|safe }};
+            let donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+            let donutData        = {
+              labels: course_name_list,
+              datasets: [
+                {
+                  data: subject_count_list,
+                  backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                }
+              ]
+            }
+            let donutOptions     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            new Chart(donutChartCanvas, {
+              type: 'doughnut',
+              data: donutData,
+              options: donutOptions
+            })
+
+            let student_count_list_in_course = {{ student_count_list_in_course }};
+            let pieData2  = {
+              labels: course_name_list,
+              datasets: [
+                {
+                  data: student_count_list_in_course,
+                  backgroundColor : ['#f56954', '#00a65a', '#aa00ff', '#ff3d00'],
+                }
+              ]
+            };
+            let pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
+            let pieOptions2     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or donut chart
+            // You can switch between pie and donut using the method below.
+            new Chart(pieChartCanvas2, {
+              type: 'pie',
+              data: pieData2,
+              options: pieOptions2
+            });
+
+            let student_count_list_in_subject = {{ student_count_list_in_subject }};
+            let subject_list = {{ subject_list|safe }};
+            let pieData3  = {
+              labels: course_name_list,
+              datasets: [
+                {
+                  data: student_count_list_in_subject,
+                  backgroundColor : ['#f56954', '#00a65a', '#aa00ff', '#ff3d00'],
+                }
+              ]
+            };
+            let pieChartCanvas3 = $('#pieChart3').get(0).getContext('2d')
+            let pieOptions3     = {
+              maintainAspectRatio : false,
+              responsive : true,
+            }
+            //Create pie or donut chart
+            // You can switch between pie and donut using the method below.
+            new Chart(pieChartCanvas3, {
+              type: 'pie',
+              data: pieData3,
+              options: pieOptions3
+            });
+
+
+        });
+    </script>
+{% endblock custom_js %}

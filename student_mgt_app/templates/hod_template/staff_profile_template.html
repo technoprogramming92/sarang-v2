@@ -1,0 +1,35 @@
+
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block page_title %}
+Staff Profile | Name : {{ staff.admin.first_name }} {{ staff.admin.last_name }}
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card" >
+                  <img src="{{ staff.profile_pic }}" class="profile-user-img img-circle" alt="Profile Picture"/>
+                  <div class="card-body">
+                    <h2 class="card-title "><b>{{ staff.admin.first_name }} {{ staff.admin.last_name }}</b></h2>
+
+                  </div>
+                  <ul class="list-group list-group-light list-group-small">
+                      <li class="list-group-item px-4"><b>Address:</b> {{ staff.address }}</li>
+                      <li class="list-group-item px-4"><b>Phone Number:</b> {{ staff.contact_number }}</li>
+                      <li class="list-group-item px-4"><b>Email Address:</b> {{ staff.admin.email }}</li>
+                      <li class="list-group-item px-4"><b>Qualification:</b> {{ staff.qualification }}</li>
+                  </ul>
+                  <div class="card-body">
+                    <a href="{% url 'edit_staff_profile' staff_id=staff.admin.id %}" class="card-link btn btn-info">Edit Profile </a>
+                    <a href="{% url 'manage_staff' %}" class="card-link btn btn-info"> Manage Staff</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}

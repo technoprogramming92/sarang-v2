@@ -1,0 +1,106 @@
+{% extends 'hod_template/base_template.html' %}
+{% block page_title %}
+Shopping From Retail Store
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Shopping</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+
+                  <form role="form" action="/add_student_bill" method="POST">
+                    {% csrf_token %}
+                    <div class="card-body">
+
+                      <div class="form-group">
+                        <label>Student Number</label>
+                        <input type="text" class="form-control" name="student_number_form" placeholder="Enter Student Number">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Number</label>
+                        <input type="text" class="form-control" name="numbers" placeholder="Enter Number of Items">
+                      </div>
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary btn-block">Add Student</button>
+                    </div>
+                  </form>
+
+                  <form role="form" action="/shopping" method="POST">
+                    {% csrf_token %}
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>Serial Number</label>
+                        <input type="text" class="form-control" name="serial_number" placeholder="Enter Serial Number">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" name="quantity" placeholder="Quantity">
+                      </div>
+
+                    </div>
+                    <!-- /.card-body -->
+    
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary btn-block">Add  Item</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Bill</h3>
+                  </div>
+                  <div class="card-body">
+                      <h3>Student Number: {{ student_from_form }}</h3>
+                        <table id="employee_info" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Item ID</th>
+                                    <th>Serial Number</th>
+                                    <th>Item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for retail in retails %}
+                                    <tr>
+                                        <td>{{ retail.id }}</td>
+                                        <td>{{ retail.serial_number }}</td>
+                                        <td>{{ retail.item_name }}</td>
+                                        <td>{{ quantity }}</td>
+                                        <td>₹. {{ retail.price }}</td>
+                                        <td>₹. 20</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}

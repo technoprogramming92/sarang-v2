@@ -1,0 +1,95 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+    <style>
+        .span-margin-left{
+            margin-left: 150px;
+        }
+        .td-new-style{
+            border: 5px double red;
+            background-color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            color: #a298a8;
+            font-size: 18px;
+        }
+        .black-span{
+            color: black;
+        }
+    </style>
+{% endblock custom_css %}
+{% block page_title %}
+Leaving Certificate
+{% endblock page_title %}
+{% block main_content %}
+<br/><br/>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <table style="width: 810px; background-color: #c7c2c8; border: 2px solid black; margin-left: 220px;">
+                    <tr>
+                        <td><img src="{% static 'dist/img/leaving_certi_header.jpg' %}"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 15px; padding-bottom: 15px; font-size: 18px;">G.R. No. : <span class="black-span"> {{ student.gr_number }}</span> <span class="span-margin-left"> School Dise No. : 24280102516 </span><span class="span-margin-left"> L.C. No. :.................  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(1) Full Name of the Student: <span class="black-span"> {{ student.admin.last_name }} {{ student.admin.first_name }} {{ student.father_name }} </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(2) Religion and Caste: <span class="black-span"> {{ student.religion }} </span> <span style="margin-left: 300px;">(3) Nationality </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(4) Mother's Name: <span class="black-span"> {{ student.mother_name }} </span> </td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(5) Place of Birth: <span class="black-span"> {{ student.birth_place }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(6) Date of Birth (in figure) : <span class="black-span"> {{ bday }}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(7) Date of Birth (in words) : <span class="black-span"> {{ b_day_word }} {{ b_month_word }} {{ b_year_word }} </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(8) Last School Attended : <span class="black-span"> {{ student.last_school }}</span> </td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(9) Date of Admission (with class) : <span class="black-span"> {{ final_admission_date }}</span> <span style="margin-left: 180px;">Standard: <span class="black-span">{{ student.course_id.course_name }}</span> </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(10) Date of Leaving School :   <span style="margin-left: 310px;">Standard:  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(11) Standard in which studying & since when? :   <span style="margin-left: 168px;">Date:  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(12) Reason for Leaving School :  </td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(13) Progress :   <span style="margin-left: 380px;">(14) Conduct:  </span></td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(15) Child UID No. : {{ student.uid }} </td>
+                    </tr>
+                    <tr>
+                        <td class="td-new-style">(16) Remark :  </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 10px; color: #84696e; font-size: 20px;">I certify that the above information is verified by me with school register and found to be correct.</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Date: <span class="span-margin-left">Clerk</span> <span class="span-margin-left">Class Teacher</span> <span class="span-margin-left">Principal</span>  </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock main_content %}

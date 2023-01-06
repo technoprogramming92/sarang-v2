@@ -1,0 +1,76 @@
+
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block page_title %}
+Manage Standards
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Standard Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="employee_info" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Standard ID</th>
+                                    <th>Standard Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in courses %}
+                                    <tr>
+                                        <td>{{ course.id }}</td>
+                                        <td>{{ course.course_name }}</td>
+                                        <td><a href="{% url 'edit_course' course_id=course.id %} " class="btn btn-info">Edit Standard</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
+
+{% block custom_js %}
+    <script src="{% static "plugins/datatables/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-bs4/js/dataTables.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-responsive/js/responsive.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/dataTables.buttons.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/jszip/jszip.min.js" %}"></script>
+    <script src="{% static "plugins/pdfmake/pdfmake.min.js" %}"></script>
+    <script src="{% static "plugins/pdfmake/vfs_fonts.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.html5.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.print.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.colVis.min.js" %}"></script>
+
+    <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#employee_info').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% endblock custom_js %}

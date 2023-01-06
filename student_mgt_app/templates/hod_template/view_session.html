@@ -1,0 +1,78 @@
+
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block page_title %}
+View Sessions
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Session Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="employee_info" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Session ID</th>
+                                    <th>Session Start Year</th>
+                                    <th>Session End Year</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for session in sessions %}
+                                    <tr>
+                                        <td>{{ session.id }}</td>
+                                        <td>{{ session.session_start_year }}</td>
+                                        <td>{{ session.session_end_year }}</td>
+                                        <td><a href="{% url 'delete_session' session_year_id=session.id %} " class="btn btn-danger">Delete Session</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
+
+{% block custom_js %}
+    <script src="{% static "plugins/datatables/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-bs4/js/dataTables.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-responsive/js/responsive.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/dataTables.buttons.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.bootstrap4.min.js" %}"></script>
+    <script src="{% static "plugins/jszip/jszip.min.js" %}"></script>
+    <script src="{% static "plugins/pdfmake/pdfmake.min.js" %}"></script>
+    <script src="{% static "plugins/pdfmake/vfs_fonts.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.html5.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.print.min.js" %}"></script>
+    <script src="{% static "plugins/datatables-buttons/js/buttons.colVis.min.js" %}"></script>
+
+    <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#employee_info').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+{% endblock custom_js %}

@@ -1,0 +1,122 @@
+
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+.bcg-img{
+    background-image: url("{% static 'dist/img/baps_logo.png' %}");
+}
+</style>
+{% endblock custom_css %}
+{% block page_title %}
+Student Profile | Name : {{ student.admin.first_name }} {{ student.admin.last_name }}
+{% endblock page_title %}
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                src="{{ student.profile_pic }}" alt="Student Picture">
+                        </div>
+                        <h2 class="profile-username text-center">{{ student.admin.last_name }} {{ student.admin.first_name }} {{ student.father_name }}</h2>
+                        <p class="text-muted text-center">Standard: {{ student.course_id.course_name }}</p>
+
+                        <div class="row" >
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-unbordered mb-3">
+                                  <li class="list-group-item">
+                                    <b>GR Number: </b> {{ student.gr_number }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Unique ID: </b> {{ student.unique_id }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Email Address: </b> {{ student.admin.email }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Contact Number Primary: </b> {{ student.contact_number_primary }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Contact Number Parents: </b> {{ student.contact_number_parents }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Contact Number WhatsApp: </b> {{ student.contact_number_whatsapp }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Contact Number Relative: </b> {{ student.contact_number_relative }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Address: </b> {{ student.address1 }}, {{ student.address2 }}<br/>
+                                     {{ student.city }}, {{ student.state }} - {{ student.pincode }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Mother Name: </b> {{ student.mother_name }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Birth Place: </b> {{ student.birth_place }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Bedding Provided: </b> {{ student.bedding_provided }}
+                                  </li>
+
+                                </ul>
+                                <a href="{% url 'edit_student_profile' student_id=student.admin.id %}" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+                                <a href="{% url 'generate_bonafide_certi' student_id=student.admin.id %}" class="btn btn-primary btn-block"><b>Generate Bonafide Certificate</b></a>
+                                <a href="{% url 'fees_management' student_id=student.admin.id %}" class="btn btn-primary btn-block"><b>Manage Fees</b></a>
+                            </div>
+
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-unbordered mb-3">
+                                  <li class="list-group-item">
+                                    <b>Hostel: </b> {{ student.hostel_id.name }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Room Number: </b> {{ student.room_number }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Locker Number: </b> {{ student.locker_number }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Admission Date: </b> {{ student.admission_date }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Religion: </b> {{ student.religion }} <br/> _
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Last School: </b> {{ student.last_school }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Birth Date: </b> {{ student.birth_date }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>UID: </b> {{ student.uid }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Session: </b> {{ student.session_year_id.session_start_year }} TO {{ student.session_year_id.session_end_year }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Bank Balance: </b> ₹. {{ student.bank_balance }}
+                                  </li>
+                                  <li class="list-group-item">
+                                    <b>Dish Provided: </b> {{ student.dish_provided }}
+                                  </li>
+
+                                </ul>
+                                <a href="{% url 'manage_student' %}" class="btn btn-primary btn-block"><b>Manage Student</b></a>
+                                <a href="{% url 'generate_leaving_certi' student_id=student.admin.id %}" class="btn btn-primary btn-block"><b>Generate Leaving Certificate</b></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
